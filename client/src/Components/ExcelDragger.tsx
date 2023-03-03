@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useState, useRef } from 'react'
+import React, { ChangeEvent, useState, useRef, useContext } from 'react'
 import { ReactComponent as UploadFileIcon } from "../assets/Images/upload-file.svg"
+import excelContext from "../context/excelContext"
 
 export default function ExcelDragger() {
 
-    const [excel, setExcel] = useState<File | null>(null)
+    const { excel, setExcel } = useContext(excelContext)
 
     const draggableAreaRef = useRef(null) as React.MutableRefObject<HTMLDivElement | null>
 
@@ -63,7 +64,7 @@ export default function ExcelDragger() {
                     multiple
                     onChange={e => handleNewExcel(e)}
                 />
-                
+
             </div>
 
         </div>

@@ -1,8 +1,11 @@
 import React, { useState, createContext, PropsWithChildren } from 'react'
+import { ExcelContextInterface } from '../ts/interfaces/excelInterface'
 
-const excelContext = createContext({})
+const excelContext = createContext<ExcelContextInterface>({ excel: null, setExcel: null })
 
-export default function ExcelContextProvider({ children }: PropsWithChildren) {
+export default excelContext
+
+export function ExcelContextProvider({ children }: PropsWithChildren) {
 
     const [excel, setExcel] = useState<File | null>(null)
 
