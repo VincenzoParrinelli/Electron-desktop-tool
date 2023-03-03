@@ -1,0 +1,38 @@
+@mixin scrollbar {
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: rgba(128, 128, 128, 0.518);
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: rgba(128, 128, 128, 0.3);
+    }
+}
+
+@mixin buttonAndLabelBasicStyles {
+    outline: none;
+    border: none;
+    padding: 1.1rem 1.6rem;
+    border-radius: .5rem;
+    background-color: $color-primary;
+    color: $color-white;
+    cursor: pointer;
+    transition: transform .2s, background-color .05s;
+    
+    &:hover, 
+    &:active {
+        transform: translateY(-2px);
+        box-shadow: 0 .5rem 1rem rgba($color-black, .15);
+    }
+
+    &:active {
+        background-color: $color-primary-dark;
+        transform: translateY(-1px);
+    }
+}

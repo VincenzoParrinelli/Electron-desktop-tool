@@ -1,12 +1,13 @@
+//ABSTRACTS
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
 //BASE
 @import "base/base";
 @import "base/typography";
 
-//ABSTRACTS
-@import "abstracts/variables";
-
 //LAYOUTS
-@import "layout/dashboard";
+@import "layout/excel-dragger";
 
 //COMPONENTS
 @import "components/button";

@@ -40,4 +40,9 @@ export const rules: Required<ModuleOptions>['rules'] = [
       "sass-loader",
     ],
   },
+
+  {
+    test: /\.svg$/,
+    use: ['@svgr/webpack', 'url-loader'],
+  },
 ];

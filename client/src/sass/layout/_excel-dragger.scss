@@ -1,0 +1,59 @@
+.excel-dragger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: rozanovaBold;
+    font-size: 2rem;
+    margin-top: 1.5rem;
+
+    &__drag-and-drop {
+        padding: 2.5rem 12rem;
+        border: dashed 2px $color-secondary;
+        border-radius: 1.6rem;
+        transition: all .2s;
+
+        &--on-drag {
+            background-color: $color-grey-dark;
+        }
+
+    }
+
+    &__paragraph,
+    &__upload-icon {
+        pointer-events: none;
+    }
+
+    &__paragraph {
+        color: $color-primary;
+    }
+
+    &__upload-icon {
+        height: 8rem;
+        width: 8rem;
+        display: block;
+        margin: auto;
+        margin-bottom: 2rem;
+        fill: $color-primary;
+    }
+
+    &__paragraph-2 {
+        color: $color-secondary;
+        font-size: 1.8rem;
+        margin: .5rem;
+    }
+
+    &__input {
+        display: none;
+    }
+
+    &__label-for-input {
+        @include buttonAndLabelBasicStyles;
+
+        font-size: 1.4rem;
+        padding: .4rem 2rem;
+        margin-bottom: 1.2rem;
+        
+    }
+
+}

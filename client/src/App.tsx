@@ -1,23 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ExcelContextProvider from "./context/excelContext"
-import Dashboard from './Components/Dashboard'
-import axios from "axios"
+import ExcelDragger from './Components/ExcelDragger'
 
 export default function App() {
-
-    useEffect(() => {
-
-        (async () => {
-
-            await axios.get("http://localhost:5000/test")
-
-        })()
-    })
 
     return (
         <div className='app'>
             <ExcelContextProvider>
-                <Dashboard />
+                <ExcelDragger />
             </ExcelContextProvider>
         </div>
     )
