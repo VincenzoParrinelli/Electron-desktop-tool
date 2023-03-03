@@ -33,7 +33,7 @@ export default function ExcelDragger() {
         e.preventDefault()
 
         const newFilesArr = e.dataTransfer.files
-        
+
 
         draggableAreaRef.current.classList.remove("excel-dragger__drag-and-drop--on-drag")
     }
@@ -50,22 +50,21 @@ export default function ExcelDragger() {
 
                 <UploadFileIcon className='excel-dragger__upload-icon' />
 
-                <p className="excel-dragger__paragraph">Drag & drop</p>
+                <p className="excel-dragger__paragraph">
+                    <span>Drag & drop or </span>
+                    <label htmlFor='excel-selector' className="excel-dragger__label-for-input">Browse</label>
+                </p>
 
+                <input
+                    className='excel-dragger__input'
+                    id='excel-selector'
+                    type="file"
+                    accept='.xlsx'
+                    multiple
+                    onChange={e => handleNewExcel(e)}
+                />
+                
             </div>
-
-            <p className="excel-dragger__paragraph-2">or</p>
-
-            <input
-                className='excel-dragger__input'
-                id='excel-selector'
-                type="file"
-                accept='.xlsx'
-                multiple
-                onChange={e => handleNewExcel(e)}
-            />
-
-            <label htmlFor='excel-selector' className="excel-dragger__label-for-input">Browse</label>
 
         </div>
     )

@@ -8,7 +8,7 @@
     margin-top: 1.5rem;
 
     &__drag-and-drop {
-        padding: 2.5rem 12rem;
+        padding: 2rem 6rem;
         border: dashed 2px $color-secondary;
         border-radius: 1.6rem;
         transition: all .2s;
@@ -26,6 +26,7 @@
 
     &__paragraph {
         color: $color-primary;
+        white-space: nowrap;
     }
 
     &__upload-icon {
@@ -37,23 +38,14 @@
         fill: $color-primary;
     }
 
-    &__paragraph-2 {
-        color: $color-secondary;
-        font-size: 1.8rem;
-        margin: .5rem;
-    }
-
     &__input {
         display: none;
     }
 
     &__label-for-input {
-        @include buttonAndLabelBasicStyles;
-
-        font-size: 1.4rem;
-        padding: .4rem 2rem;
-        margin-bottom: 1.2rem;
-        
+        cursor: pointer;
+        text-decoration: underline;
+        pointer-events: all;
     }
 
 }

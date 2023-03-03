@@ -15,24 +15,24 @@
     }
 }
 
-@mixin buttonAndLabelBasicStyles {
+@mixin buttonBasic($color, $background-color: $color-primary, $padding: 1.1rem 1.6rem, $box-shadow: $box-shadow-primary) {
     outline: none;
     border: none;
-    padding: 1.1rem 1.6rem;
+    padding: $padding;
     border-radius: .5rem;
-    background-color: $color-primary;
-    color: $color-white;
+    background-color: $background-color;
+    color: $color;
     cursor: pointer;
     transition: transform .2s, background-color .05s;
-    
-    &:hover, 
+
+    &:hover,
     &:active {
         transform: translateY(-2px);
-        box-shadow: 0 .5rem 1rem rgba($color-black, .15);
+        box-shadow: $box-shadow;
     }
 
     &:active {
-        background-color: $color-primary-dark;
+        background-color: $background-color;
         transform: translateY(-1px);
     }
 }
