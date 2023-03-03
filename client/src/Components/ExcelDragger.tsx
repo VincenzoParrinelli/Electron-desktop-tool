@@ -11,14 +11,14 @@ export default function ExcelDragger() {
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault()
 
-        draggableAreaRef.current.classList.add("files-dragger__drag-and-drop--on-drag")
+        draggableAreaRef.current.classList.add("excel-dragger__drag-and-drop--on-drag")
     }
 
     // When user leaves cursor from drag and drop remove style
     const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault()
 
-        draggableAreaRef.current.classList.remove("files-dragger__drag-and-drop--on-drag")
+        draggableAreaRef.current.classList.remove("excel-dragger__drag-and-drop--on-drag")
     }
 
     const handleNewExcel = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +35,7 @@ export default function ExcelDragger() {
         const newFilesArr = e.dataTransfer.files
         
 
-        draggableAreaRef.current.classList.remove("files-dragger__drag-and-drop--on-drag")
+        draggableAreaRef.current.classList.remove("excel-dragger__drag-and-drop--on-drag")
     }
 
     return (
@@ -60,6 +60,7 @@ export default function ExcelDragger() {
                 className='excel-dragger__input'
                 id='excel-selector'
                 type="file"
+                accept='.xlsx'
                 multiple
                 onChange={e => handleNewExcel(e)}
             />
