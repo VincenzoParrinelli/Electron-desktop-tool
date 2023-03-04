@@ -1,8 +1,8 @@
 .btn {
+    @include buttonBasic($margin: 2rem, $padding: 1rem 2rem);
+    
     outline: none;
     border: none;
-    margin: 2rem;
-    padding: 1rem 2rem;
     border-radius: 8px;
     cursor: pointer;
 
