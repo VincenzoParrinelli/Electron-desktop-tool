@@ -1,12 +1,12 @@
-import React, { ChangeEvent, useState, useRef, useContext } from 'react'
+import React, { ChangeEvent, useRef, useContext } from 'react'
 import { ReactComponent as UploadFileIcon } from "../assets/Images/upload-file.svg"
 import candidateContext from "../context/candidatesContext"
 import { read, utils } from 'xlsx'
-import { Candidate, CandidatesContextInterface } from '../ts/interfaces/candidatesInterface'
+import { Candidate } from '../ts/interfaces/candidatesInterface'
 
 export default function ExcelDragger() {
 
-    const { candidates, setCandidates } = useContext(candidateContext)
+    const { setCandidates } = useContext(candidateContext)
 
     const draggableAreaRef = useRef(null) as React.MutableRefObject<HTMLDivElement | null>
 

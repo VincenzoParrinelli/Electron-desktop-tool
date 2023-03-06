@@ -1,6 +1,7 @@
 import React from 'react'
 import { CandidatesContextProvider } from "./context/candidatesContext"
 import ExcelDragger from './Components/ExcelDragger'
+import CandidatesList from './Components/CandidatesList'
 
 export default function App() {
 
@@ -8,6 +9,7 @@ export default function App() {
         <div className='app'>
             <CandidatesContextProvider>
                 <ExcelDragger />
+                <CandidatesList />
             </CandidatesContextProvider>
         </div>
     )

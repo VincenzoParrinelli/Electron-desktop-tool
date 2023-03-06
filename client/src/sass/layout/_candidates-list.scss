@@ -1,0 +1,15 @@
+.candidates-list {
+
+    font-family: rozanovaRegular;
+    font-size: 1.2rem;
+    background-color: $color-grey-light;
+    width: 160%;
+    height: auto;
+    text-align: center;
+    padding: .5rem 1rem;
+
+    &__candidate {
+        text-align: center;
+        margin: 1rem;
+    }
+}
