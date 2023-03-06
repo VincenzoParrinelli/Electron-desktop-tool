@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useState, useRef, useContext } from 'react'
 import { ReactComponent as UploadFileIcon } from "../assets/Images/upload-file.svg"
-import excelContext from "../context/excelContext"
+import candidateContext from "../context/candidatesContext"
+import { read, utils } from 'xlsx'
+import { Candidate, CandidatesContextInterface } from '../ts/interfaces/candidatesInterface'
 
 export default function ExcelDragger() {
 
-    const { excel, setExcel } = useContext(excelContext)
+    const { candidates, setCandidates } = useContext(candidateContext)
 
     const draggableAreaRef = useRef(null) as React.MutableRefObject<HTMLDivElement | null>
 
@@ -25,18 +27,76 @@ export default function ExcelDragger() {
     const handleNewExcel = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
 
+        const excel = e.target.files[0]
 
-        setExcel(e.target.files[0])
+        getCandidatesFromExcel(excel)
     }
 
     // Handle drag and dropped files 
     const handleOnDrop = async (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault()
 
-        const newFilesArr = e.dataTransfer.files
+        const excel = e.dataTransfer.files[0]
 
+        // Check if file is excel 
+        if (excel.type === 'application/vnd.ms-excel' || excel.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') getCandidatesFromExcel(excel)
+
+        else alert("Please drop only Excel files!")
 
         draggableAreaRef.current.classList.remove("excel-dragger__drag-and-drop--on-drag")
+    }
+
+    // TODO: OPTIMIZE THIS
+    const getCandidatesFromExcel = async (excel: File) => {
+
+        if (!excel) return alert("Insert excel")
+
+        // Read data from excel
+        const data = await excel.arrayBuffer()
+
+        const workbook = read(data)
+
+        const sheetName = workbook.SheetNames[0]
+        const worksheet = workbook.Sheets[sheetName]
+
+        // Specify rows and columns from where to get the candidates
+        const startRow = 9
+        const endRow = 30
+        const startCol = 2
+        const endCol = 9
+        const colsToSkip = [3, 5, 8]
+
+        const candidates = [] as Candidate[]
+
+        // Iterate trough selected rows and columns and push data into candidates array
+        for (let rowNum = startRow; rowNum <= endRow; rowNum++) {
+
+            const row = []
+
+            for (let colNum = startCol; colNum <= endCol; colNum++) {
+
+                // Skip cols defined in colsToSkip array
+                if (colsToSkip.includes(colNum)) continue
+
+                const cell = worksheet[utils.encode_cell({ r: rowNum, c: colNum })]
+                const value = cell ? cell?.v : null
+                row.push(value)
+            }
+
+            const newCandidate: Candidate = {
+                fullName: row[0],
+                phoneNumber: row[1],
+                id: row[2],
+                registrationDate: row[3],
+                examHour: row[4]
+            }
+
+
+            candidates.push(newCandidate)
+        }
+
+        setCandidates(candidates)
+
     }
 
     return (
@@ -67,6 +127,11 @@ export default function ExcelDragger() {
 
             </div>
 
+            <button
+                className="btn"
+               >
+                AVVIA
+            </button>
         </div>
     )
 }
