@@ -3,10 +3,11 @@ import { ReactComponent as UploadFileIcon } from "../assets/Images/upload-file.s
 import candidateContext from "../context/candidatesContext"
 import { read, utils } from 'xlsx'
 import { Candidate } from '../ts/interfaces/candidatesInterface'
+import axios from "axios"
 
 export default function ExcelDragger() {
 
-    const { setCandidates } = useContext(candidateContext)
+    const { candidates, setCandidates } = useContext(candidateContext)
 
     const draggableAreaRef = useRef(null) as React.MutableRefObject<HTMLDivElement | null>
 
@@ -99,6 +100,12 @@ export default function ExcelDragger() {
 
     }
 
+    const handleAutomation = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault()
+
+        await axios.post("http://localhost:5000/automation", candidates)
+    }
+
     return (
         <div className='excel-dragger'>
 
@@ -129,7 +136,8 @@ export default function ExcelDragger() {
 
             <button
                 className="btn"
-               >
+                onClick={e => handleAutomation(e)}
+            >
                 AVVIA
             </button>
         </div>
