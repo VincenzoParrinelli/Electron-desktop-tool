@@ -118,8 +118,8 @@ export default function ExcelDragger() {
                 <UploadFileIcon className='excel-dragger__upload-icon' />
 
                 <p className="excel-dragger__paragraph">
-                    <span>Drag & drop or </span>
-                    <label htmlFor='excel-selector' className="excel-dragger__label-for-input">Browse</label>
+                    <span>Trascina file o </span>
+                    <label htmlFor='excel-selector' className="excel-dragger__label-for-input">Seleziona</label>
                 </p>
 
                 <input
@@ -136,6 +136,7 @@ export default function ExcelDragger() {
             <button
                 className="btn"
                 onClick={e => handleAutomation(e)}
+                disabled={!candidates?.length}
             >
                 AVVIA
             </button>
