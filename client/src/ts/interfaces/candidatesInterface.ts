@@ -1,9 +1,14 @@
+export enum Status {
+    notInserted = "NOTINSERTED",
+    processing = "PROCESSING",
+    inserted = "INSERTED"
+}
+
 export interface Candidate {
     fullName: string,
-    phoneNumber: string,
     id: string,
-    registrationDate: string,
     examHour: number
+    status: Status
 }
 
 export interface CandidatesContextInterface {

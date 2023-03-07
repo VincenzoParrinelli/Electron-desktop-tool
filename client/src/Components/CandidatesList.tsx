@@ -1,9 +1,17 @@
 import React, { useContext } from 'react'
 import candidateContext from "../context/candidatesContext"
+import { Status } from '../ts/interfaces/candidatesInterface'
 
 export default function CandidatesList() {
 
     const { candidates } = useContext(candidateContext)
+
+    const renderStatus = (status: Status): string => {
+
+        if (status === "NOTINSERTED") return "Non inserito"
+        else if (status === "PROCESSING") return "In corso"
+        else if (status === "INSERTED") return "Inserito"
+    }
 
     return (
         <table className='candidates-list'>
@@ -33,6 +41,7 @@ export default function CandidatesList() {
                             <td>{candidate.fullName}</td>
                             <td>{candidate.id}</td>
                             <td>{candidate.examHour}</td>
+                            <td>{renderStatus(candidate.status)}</td>
                         </tr>
 
                     )

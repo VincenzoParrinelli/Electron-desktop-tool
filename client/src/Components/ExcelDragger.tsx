@@ -2,7 +2,7 @@ import React, { ChangeEvent, useRef, useContext } from 'react'
 import { ReactComponent as UploadFileIcon } from "../assets/Images/upload-file.svg"
 import candidateContext from "../context/candidatesContext"
 import { read, utils } from 'xlsx'
-import { Candidate } from '../ts/interfaces/candidatesInterface'
+import { Status, Candidate } from '../ts/interfaces/candidatesInterface'
 import axios from "axios"
 
 export default function ExcelDragger() {
@@ -86,10 +86,9 @@ export default function ExcelDragger() {
 
             const newCandidate: Candidate = {
                 fullName: row[0],
-                phoneNumber: row[1],
                 id: row[2],
-                registrationDate: row[3],
-                examHour: row[4]
+                examHour: row[4],
+                status: Status.notInserted
             }
 
 
