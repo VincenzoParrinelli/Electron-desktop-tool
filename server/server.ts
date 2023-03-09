@@ -17,12 +17,16 @@ app.get("/open-browser", async (req, res) => {
     browser = await puppeteer.launch({
         product: 'firefox',
         headless: false,
-        defaultViewport: false
+        defaultViewport: false,
+
+        args: ["-wait-for-browser"],
+        executablePath: "C:/Program Files/Mozilla Firefox/firefox.exe"
     })
 
     page = await browser.newPage()
 
     await page.goto("https://www.ilportaledellautomobilista.it/web/portale-automobilista/loginspid")
+    //await page.goto("https://www.justeat.it/")
 
     res.sendStatus(200)
 })
@@ -37,19 +41,23 @@ app.post("/automation", async (req, res, next) => {
     res.setHeader('Cache-Control', 'no-cache')
     res.setHeader('Connection', 'keep-alive')
 
-    const candidates = req.body as []
+    const candidates = req.body
 
-    candidates.forEach(async candidate => {
+    for (let i = 0; i < candidates.length; i++) {
 
-        const { id, examHour } = candidate
+        const { id, examHour } = candidates[i]
 
         await page.goto("https://www.ilportaledellautomobilista.it/RichiestaPatenti/richiesta/Read_initAction.action?pageStatus=SEARCH&MENU=Ricerca")
-        await page.type("#Read_initAction_richiestaView_richiestaFrom_marcaOperativa", id)
+        await page.type("#Read_initAction_richiestaView_richiestaFrom_marcaOperativa", 2)
         await page.keyboard.press('Enter')
 
         if ((await page.$x("/html/body/div[3]/div[2]/div/div/div"))[0] || (await page.$x("/html/body/h1"))[0]) return
 
+        await page.waitForSelector("#Read_paging_richiestaView_cognome")
+
         const lastNameFirstLetter = await page.$eval("#Read_paging_richiestaView_cognome", lastNameInput => lastNameInput.getAttribute("value")[0])
+
+        await page.waitForSelector("#Read_paging_richiestaView_richiestaFrom_numeroFRToView")
 
         const statinoCode = await page.$eval("#Read_paging_richiestaView_richiestaFrom_numeroFRToView", code => code.getAttribute("value"))
 
@@ -77,8 +85,8 @@ app.post("/automation", async (req, res, next) => {
         if (await page2.$(".errori")) return await page2.click("#DisponibilitaSessioneEsameEP_button_value_backFromNew")
 
         await page2.click("#DisponibilitaSessioneEsameEP_button_value_undoFromDelete")
-    })
 
+    }
 
     res.sendStatus(200)
 })
