@@ -30,6 +30,13 @@ app.get("/open-browser", async (req, res) => {
 
 app.post("/automation", async (req, res, next) => {
 
+    //const button = (await page.$x('/html/body/div[3]/div/div[2]/button[1]'))[0].click() //WORKS
+    //await page.click('.cpBanner-button--accept') //WORKS
+
+    res.setHeader('Content-Type', 'text/event-stream')
+    res.setHeader('Cache-Control', 'no-cache')
+    res.setHeader('Connection', 'keep-alive')
+
     const candidates = req.body as []
 
     candidates.forEach(async candidate => {
@@ -48,13 +55,13 @@ app.post("/automation", async (req, res, next) => {
 
         const page2 = await browser.newPage()
 
-        //TODO: await page2.click("#DettaglioDisponibilitaSessioneEsameEP_button_value_newCandidato")
+        await page2.click("#DettaglioDisponibilitaSessioneEsameEP_button_value_newCandidato")
 
         await page2.type("#DisponibilitaSessioneEsameEP_disponibilitaSessioneEsameEPView_prenotazioneCandidatoEP_theRichiestaEmissioneDocumentoAbilitazioneEP_codiceFoglioRosa", statinoCode)
         await page2.type("#DisponibilitaSessioneEsameEP_disponibilitaSessioneEsameEPView_prenotazioneCandidatoEP_theRichiestaEmissioneDocumentoAbilitazioneEP_thePersonaFisica_descrizioneCognomePersonaFisica", lastNameFirstLetter)
 
         //TODO: Select by value 
-        const selectBtn = await page2.$("DisponibilitaSessioneEsameEP_disponibilitaSessioneEsameEPView_prenotazioneCandidatoEP_turnoEsaminatore")
+        const selectBtn = await page2.$("#DisponibilitaSessioneEsameEP_disponibilitaSessioneEsameEPView_prenotazioneCandidatoEP_turnoEsaminatore")
 
         if (examHour === 8 || examHour === 14) await selectBtn.select("1")
         else if (examHour === 9 || examHour === 15) await selectBtn.select("2")
@@ -65,11 +72,11 @@ app.post("/automation", async (req, res, next) => {
 
         ///
 
-        //TODO: await page2.click("#DisponibilitaSessioneEsameEP_button_value_conferma")
+        await page2.click("#DisponibilitaSessioneEsameEP_button_value_conferma")
 
-        if ((await page2.$x(""))[0]) return await page2.click("#DisponibilitaSessioneEsameEP_button_value_backFromNew")
+        if (await page2.$(".errori")) return await page2.click("#DisponibilitaSessioneEsameEP_button_value_backFromNew")
 
-        //TODO: await page2.click("#DisponibilitaSessioneEsameEP_button_value_undoFromDelete")
+        await page2.click("#DisponibilitaSessioneEsameEP_button_value_undoFromDelete")
     })
 
 

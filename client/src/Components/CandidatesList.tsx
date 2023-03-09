@@ -28,6 +28,9 @@ export default function CandidatesList() {
                         Ora Esame
                     </th>
                     <th>
+                        Supporto audio
+                    </th>
+                    <th>
                         Stato
                     </th>
                 </tr>
@@ -41,6 +44,7 @@ export default function CandidatesList() {
                             <td>{candidate.fullName}</td>
                             <td>{candidate.id}</td>
                             <td>{candidate.examHour}</td>
+                            <td>n/d</td>
                             <td>{renderStatus(candidate.status)}</td>
                         </tr>
 
